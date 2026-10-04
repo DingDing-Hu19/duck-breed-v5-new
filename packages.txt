@@ -9,6 +9,3 @@ r-cran-ggplot2
 r-cran-jsonlite
 r-cran-openxlsx
 r-cran-matrix
-r-cran-randomforest
-r-cran-xgboost
-r-cran-cluster
