@@ -1,0 +1,15 @@
+name: duckbreed
+channels:
+  - conda-forge
+dependencies:
+  - r-base=4.4
+  - r-jsonlite
+  - r-dplyr
+  - r-ggplot2
+  - r-openxlsx
+  - r-shiny
+  - r-dt
+  - r-tibble
+  - r-tidyr
+  - r-readxl
+  - pip
