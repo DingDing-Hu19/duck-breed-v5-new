@@ -1,0 +1,14 @@
+r-base
+r-base-dev
+r-cran-readxl
+r-cran-dplyr
+r-cran-tidyr
+r-cran-stringr
+r-cran-lubridate
+r-cran-ggplot2
+r-cran-jsonlite
+r-cran-openxlsx
+r-cran-matrix
+r-cran-randomforest
+r-cran-xgboost
+r-cran-cluster
