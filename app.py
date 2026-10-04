@@ -5,8 +5,24 @@ import json
 import tempfile
 from pathlib import Path
 
+# ========== 首次启动时用 R 装缺失的 CRAN 包 ==========
+_R_PKGS = ["randomForest", "xgboost", "cluster"]
+_R_INSTALL = f'''
+pkgs <- c({", ".join(f'"{p}"' for p in _R_PKGS)})
+missing <- pkgs[!sapply(pkgs, requireNamespace, quietly = TRUE)]
+if (length(missing) > 0) {{
+  install.packages(missing, repos = "https://cloud.r-project.org")
+}}
+'''
+try:
+    subprocess.run(["Rscript", "-e", _R_INSTALL], check=False, timeout=1800)
+except Exception as e:
+    print(f"R 包安装失败: {e}")
+
+# ========== 页面 ==========
 st.set_page_config(page_title="鸭芯智选", layout="wide")
 st.title("🦆 鸭芯智选 V5.0")
+
 
 def call_r(script, config):
     with tempfile.TemporaryDirectory() as tmp:
@@ -21,6 +37,7 @@ def call_r(script, config):
         if proc.returncode != 0:
             raise RuntimeError(proc.stderr)
         return json.loads(out.read_text(encoding="utf-8"))
+
 
 st.sidebar.header("上传数据")
 feed_files = st.sidebar.file_uploader("采食表", type=["xls", "xlsx"], accept_multiple_files=True)
@@ -62,7 +79,7 @@ if st.sidebar.button("开始计算", type="primary"):
 
     with st.spinner("R 引擎计算中..."):
         try:
-            result = call_r("r/duck_tool_simple_shiny.R", {
+            result = call_r("r/duck_tool_V5_simple.R", {
                 "feed_files": feed_paths,
                 "bw_files": bw_paths,
                 "ped_path": ped_path,
