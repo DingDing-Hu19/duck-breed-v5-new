@@ -62,7 +62,7 @@ if st.sidebar.button("开始计算", type="primary"):
 
     with st.spinner("R 引擎计算中..."):
         try:
-            result = call_r("r/duck_tool_V5_simple.R", {
+            result = call_r("r/duck_tool_simple_shiny.R", {
                 "feed_files": feed_paths,
                 "bw_files": bw_paths,
                 "ped_path": ped_path,
